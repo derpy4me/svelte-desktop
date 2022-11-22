@@ -1,3 +1,9 @@
-<script>
-  import './app.css'
-</script>
+<style>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  body {
+    background-color: aliceblue;
+  }
+</style>

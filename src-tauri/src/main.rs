@@ -3,6 +3,9 @@
     windows_subsystem = "windows"
 )]
 
+use test_lib::print_hello;
+mod another_test;
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
