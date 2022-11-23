@@ -1,9 +1,8 @@
-use reqwest::Result;
-use serde::Deserialize;
-use serde_json;
+use reqwest::Error;
+use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug)]
-struct Address {
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Address {
     id: u32,
     street: String,
     streetName: String,
@@ -16,8 +15,8 @@ struct Address {
     longitude: f64,
 }
 
-#[derive(Deserialize, Debug)]
-struct Person {
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Person {
     id: u32,
     firstname: String,
     lastname: String,
@@ -30,8 +29,8 @@ struct Person {
     address: Address,
 }
 
-#[derive(Deserialize, Debug, Default)]
-struct FakeResponse {
+#[derive(Serialize, Deserialize, Debug, Default)]
+pub struct FakeResponse {
     status: String,
     code: u32,
     total: u32,
@@ -40,18 +39,19 @@ struct FakeResponse {
 
 
 #[tokio::main]
-pub async fn request_test() -> Result<()> {
+pub async fn request_test() -> Result<FakeResponse, Error> {
     let request_url = format!("https://fakerapi.it/api/v1/persons?_quantity=1&_locale=en_EN");
     println!("{}", request_url);
 
     let response = reqwest::get(&request_url).await?;
 
     if response.status().is_success() {
-        let response_test = response.json::<FakeResponse>().await?;
-        println!("{:?}", response_test);
+        let fake_response = response.json::<FakeResponse>().await?;
+        // println!("{:?}", fake_response);
+        Ok(fake_response)
     } else {
         println!("Fake request failed.");
+        Ok(FakeResponse::default())
     }
 
-    Ok(())
 }
