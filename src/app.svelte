@@ -1,9 +1,3 @@
-<style>
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
-  body {
-    background-color: aliceblue;
-  }
-</style>
+<script>
+  import './global.css'
+</script>
