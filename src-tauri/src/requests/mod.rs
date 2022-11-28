@@ -1,7 +1,6 @@
 use reqwest::Error;
 use serde::{Deserialize, Serialize};
 #[allow(non_snake_case)]
-
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Address {
     id: u32,
@@ -38,7 +37,6 @@ pub struct FakeResponse {
     data: Vec<Person>,
 }
 
-
 #[tokio::main]
 pub async fn request_test() -> Result<FakeResponse, Error> {
     let request_url = format!("https://fakerapi.it/api/v1/persons?_quantity=1&_locale=en_EN");
@@ -54,5 +52,4 @@ pub async fn request_test() -> Result<FakeResponse, Error> {
         println!("Fake request failed.");
         Ok(FakeResponse::default())
     }
-
 }

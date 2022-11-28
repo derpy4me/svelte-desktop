@@ -4,7 +4,7 @@
 )]
 mod requests;
 mod menus;
-
+mod windows;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -27,6 +27,7 @@ fn get_person() -> requests::FakeResponse {
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![greet,get_person])
+        .setup(|app| {windows::build_new_window(app)})
         .menu(menus::get_main_menu())
         .on_menu_event(|event| {menus::match_main_menu_event(event)})
         .run(tauri::generate_context!())
