@@ -1,12 +1,13 @@
 use std::error::Error;
 
-use tauri::{App, WindowBuilder, WindowUrl};
+use tauri::{AppHandle, WindowBuilder, WindowUrl};
 
-pub fn build_new_window(app: &mut App) -> Result<(), Box<dyn Error>>{
-    let a_window = WindowBuilder::new(
+pub fn build_new_window(app: &AppHandle) -> Result<(), Box<dyn Error>> {
+    WindowBuilder::new(
         app,
         "external",
-        WindowUrl::External("https://tauri.app/".parse().unwrap())
-    ).build();
+        WindowUrl::External("https://tauri.app/".parse().unwrap()),
+    )
+    .build()?;
     Ok(())
 }
